@@ -1,0 +1,101 @@
+<div class="row">
+  <div class="col-md-4">
+    <form name="callFrm" novalidate class="form" ng-submit="callFrm.$valid && main.submit()">
+      <div class="form-group" ng-class="{ 'has-error' : nameFrm.name.$invalid && nameFrm.name.$error }">
+        <ng-form name="nameFrm">
+          <label for="nm" class="sr-only">Nane</label>
+          <input id="nm" class="form-control" type="text" name="name" ng-model="main.call.name" placeholder="Name" ng-maxlength="30" required>
+          <p class="help-block" ng-show="nameFrm.name.$error.maxlength">
+            This field cannot be more than 30 characters
+          </p>
+          <p class="help-block" ng-show="nameFrm.name.$invalid && nameFrm.name.$error.required">
+            This field is required
+          </p>
+        </ng-form>
+      </div>
+      <div class="form-group" ng-class="{ 'has-error' : phoneFrm.phone.$invalid && phoneFrm.phone.$error }">
+        <ng-form name="phoneFrm">
+          <label for="ph" class="sr-only">Phone number</label>
+          <input id="ph" class="form-control" type="text" name="phone" ng-model="main.call.phone" placeholder="Phone number" phone required>
+          <p class="help-block" ng-show="phoneFrm.phone.$error.phone">Phone number should start with '+', or '00' string followed by digit characters or characters '(', ')', '­'. </p>
+          <p class="help-block" ng-show="phoneFrm.phone.$invalid && phoneFrm.phone.$error.required">
+            This field is required
+          </p>
+        </ng-form>
+      </div>
+      <div class="form-group" ng-class="{ 'has-error' : timeFrm.time.$invalid && timeFrm.time.$error }">
+        <ng-form name="timeFrm">
+          <label for="time" class="sr-only">Time</label>
+          <input type="text" id="time" class="form-control" name="time" ng-model="main.call.time" placeholder="Time" ng-pattern="main.timeReg" required>
+          <p class="help-block" ng-show="timeFrm.time.$invalid && timeFrm.time.$error.required">
+            This field is required
+          </p>
+          <p class="help-block" ng-show="timeFrm.time.$error.pattern">
+            This field must be in the form of 00:00
+          </p>
+        </ng-form>
+      </div>
+      <div class="form-group">
+        <button type="button" class="btn btn-danger" ng-click="main.reset()">Clear</button>
+        <button type="submit" class="btn btn-success">Submit</button>
+      </div>
+    </form>
+  </div>
+  <div class="col-md-8">
+    <div class="panel panel-info">
+      <div class="panel-heading">Next Call</div>
+        <table class="table table-bordered">
+            <tbody>
+              <tr>
+                <td>{{main.nextCall.name}}</td>
+                <td>{{main.nextCall.phone}}</td>
+                <td>{{main.nextCall.time | date:'mm:ss'}}</td>
+              </tr>
+            </tbody>
+        </table>
+      </div>
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th ng-click="main.order('name')">
+                <span>Name</span>
+                <span ng-class="main.acs ? 'glyphicon glyphicon-sort-by-attributes' : 'glyphicon glyphicon-sort-by-attributes-alt'" class="pull-right"></span>
+              </th>
+              <th>Phone number</th>
+              <th ng-click="main.order('time')">
+              <span>Time</span>
+              <span ng-class="main.acs ? 'glyphicon glyphicon-sort-by-attributes' : 'glyphicon glyphicon-sort-by-attributes-alt'" class="pull-right"></span>
+              </th>
+              <th></th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="c in main.calls | orderBy:main.predicate:main.reverse track by c.time" ng-class="c.disabled ? 'strikethrough' : ''">
+              <td>{{c.name}}</td>
+              <td>{{c.phone}}</td>
+              <td>{{c.time | date:'mm:ss'}}</td>
+              <td><button ng-click="main.remove(c)"><span class="glyphicon glyphicon-remove-sign"></span></button></td>
+              <td><label><input type="checkbox" name="past" ng-model="c.disabled"></label></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="panel-footer">
+        <div class="btn-group btn-group-justified" role="group">
+          <div class="btn-group" role="group">
+            <button type="button" class="btn btn-default" ng-click="main.all()">All</button>
+          </div>
+          <div class="btn-group" role="group">
+            <button type="button" class="btn btn-default" ng-click="main.state('future')">Next</button>
+          </div>
+          <div class="btn-group" role="group">
+            <button type="button" class="btn btn-default" ng-click="main.state('past')">Finished</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
