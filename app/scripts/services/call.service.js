@@ -39,7 +39,7 @@ angular.module('aivisApp')
 				phone = str.split(/[\+\(\)\-\s]/).join("").split(/(\d{3})/g).join(" ").trim();
 			}
 			
-			return "00" + phone
+			return "00" + phone;
 
 		};
 
@@ -76,7 +76,6 @@ angular.module('aivisApp')
 				return toArray($localStorage.callService);
 			},
 			remove: function(model) {
-				console.log(model);
 				delete $localStorage.callService[model.time];
 				return toArray($localStorage.callService);
 			},
