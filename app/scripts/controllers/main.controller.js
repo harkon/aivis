@@ -19,6 +19,10 @@ angular.module('aivisApp')
     main.nextCall = {};
     main.timeReg = /^([0-5]?\d:[0-5]?\d)$/;
 
+    var getAll = function(){
+      main.calls = CallService.getAll();
+    };
+
     var getNext = function() {
       main.nextCall = CallService.getNext();
     };
@@ -44,11 +48,14 @@ angular.module('aivisApp')
     };
 
     main.all = function() {
-      main.calls = CallService.getAll();
+      getAll();
     };
 
     main.state = function(str) {
       main.calls = CallService.getByState(str);
     };
 
+    //populate with data
+    getAll();
+    
   });

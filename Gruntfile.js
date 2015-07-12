@@ -29,7 +29,7 @@ module.exports = function (grunt) {
   grunt.initConfig({
 
     // Project settings
-    yeoman: 'app',//appConfig,
+    yeoman: appConfig,
 
     // Watches files for changes and runs tasks based on the changed files
     watch: {
@@ -77,9 +77,6 @@ module.exports = function (grunt) {
       },
       livereload: {
         options: {
-          open: {
-            appName: 'Chrome'
-          },
           middleware: function (connect) {
             return [
               connect.static('.tmp'),
