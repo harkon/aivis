@@ -33,10 +33,10 @@ angular.module('aivisApp')
 		var format = function(str) {
 			// 00XXX XXX XXX
 			var phone;
-			if (str.indexOf("00") === 0) {
-				phone = str.slice(2).split(/[\+\(\)\-\s]/).join("").split(/(\d{3})/g).join(" ").trim();
+			if (/^(00)?/.test(str)) {
+				phone = str.substring(2).replace(/[\+\(\)\-\s]/g, "").split(/(\d{3})/g).join(" ").trim();
 			} else {
-				phone = str.split(/[\+\(\)\-\s]/).join("").split(/(\d{3})/g).join(" ").trim();
+				phone = str.replace(/[\+\(\)\-\s]/g, "").split(/(\d{3})/g).join(" ").trim();
 			}
 			
 			return "00" + phone;
