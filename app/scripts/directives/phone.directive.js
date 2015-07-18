@@ -10,14 +10,21 @@
 angular.module('aivisApp')
   .directive('phone', function() {
 
-    var INT_PHONE_REGEX = /(\+.|(00))/;
-    /* 
-      NOTE: There's a bug in this regex. Doesn't work as it's supposed to on the runtime,
-      even though that works OK both on http://regexr.com/ and https://regex101.com/#javascript
-    */
-
-    var SPECIAL_CHARS_REGEX = /([\d\s]*\(?[\d\s]*\)?\-?[\d\s]*)/;
+    var INT_PHONE_REGEX = /(\+|(00))/;
+    var SPECIAL_CHARS_REGEX = /[\(\)\-]/g;
     var DIGITS_OR_SPACE_REGEX = /^[\d\s]*$/;
+
+    function isUnique(arr) {
+      if(!arr) return;
+      var map = {};
+      for (var i = 0; i < arr.length; i++) {
+        if (map[arr[i]]) {
+          return false;
+        }
+        map[arr[i]] = true;
+      }
+      return true;
+    }
 
     return {
       require: 'ngModel',
@@ -30,11 +37,11 @@ angular.module('aivisApp')
           };
 
           var p1 = viewValue.substring(0, 2);
-          var p2 = viewValue.substring(1, 9);
+          var p2 = viewValue.substring(1, 9).match(SPECIAL_CHARS_REGEX);
           var p3 = viewValue.substring(9);
 
           return INT_PHONE_REGEX.test(p1) &&
-            SPECIAL_CHARS_REGEX.test(p2) &&
+            isUnique(p2) &&
             DIGITS_OR_SPACE_REGEX.test(p3);
         }
       }
