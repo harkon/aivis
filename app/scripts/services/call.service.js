@@ -12,7 +12,7 @@
 angular.module('aivisApp')
 	.factory('CallService', function($localStorage) {
 
-		$localStorage.callService = {"1436688600711":{"name":"John Doe","phone":"00420 111 222 333","time":1436688600711,"disabled":true},"1436689200659":{"name":"Foo Bar","phone":"00420 111 222 333","time":1436689200659,"disabled":true},"1436689800335":{"name":"Baz Qux","phone":"00420 111 222 333","time":1436689800335,"disabled":true},"1436690400848":{"name":"Daffy Doc","phone":"00420 111 222 333","time":1436690400848,"disabled":false}};
+		$localStorage.callService = {};
 
 		var toTime = function(str) {
 			var t = str.split(":");

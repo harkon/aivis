@@ -10,6 +10,28 @@
 angular.module('aivisApp')
   .controller('MainCtrl', function($scope, $timeout, CallService) {
 
+    var data = [{
+        "name": "John Doe",
+        "phone": "+(420) 111 222 333",
+        "time": "10:00",
+        "disabled": true
+      },{
+        "name": "Foo Bar",
+        "phone": "+(420)­111222333",
+        "time": "20:00",
+        "disabled": true
+      },{
+        "name": "Baz Qux",
+        "phone": "+420111222333",
+        "time": "30:00",
+        "disabled": true
+      },{
+        "name": "Daffy Doc",
+        "phone": "00420111222333",
+        "time": "40:00",
+        "disabled": false
+      }];
+
     var main = this;
 
     main.call = {};
@@ -19,7 +41,7 @@ angular.module('aivisApp')
     main.nextCall = {};
     main.timeReg = /^([0-5]?\d:[0-5]?\d)$/;
 
-    var getAll = function(){
+    var getAll = function() {
       main.calls = CallService.getAll();
     };
 
@@ -56,6 +78,11 @@ angular.module('aivisApp')
     };
 
     //populate with data
+    angular.forEach(data, function(call){
+      CallService.save(call);
+    });
+
     getAll();
-    
+    getNext();
+
   });
