@@ -32,15 +32,7 @@ angular.module('aivisApp')
 
 		var format = function(str) {
 			// 00XXX XXX XXX
-			var phone;
-			if (/^(00)?/.test(str)) {
-				phone = str.substring(2).replace(/[\+\(\)\-\s]/g, "").split(/(\d{3})/g).join(" ").trim();
-			} else {
-				phone = str.replace(/[\+\(\)\-\s]/g, "").split(/(\d{3})/g).join(" ").trim();
-			}
-			
-			return "00" + phone;
-
+			return "00" + str.replace(/(\+|(00))/, "").replace(/[\(\)\-\s]/g, "").match(/(\d{3})/g).join(" ");
 		};
 
 		var setState = function(obj) {
