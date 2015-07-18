@@ -82,7 +82,12 @@ angular.module('aivisApp')
       CallService.save(call);
     });
 
+    $timeout(function(){
+      getAll();
+      getNext();
+    }, 60000);
+
     getAll();
     getNext();
-
+  
   });
