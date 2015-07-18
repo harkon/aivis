@@ -83,7 +83,6 @@ angular.module('aivisApp')
     });
 
     $interval(function(){
-      console.log("time");
       getAll();
       getNext();
     }, 60000);
