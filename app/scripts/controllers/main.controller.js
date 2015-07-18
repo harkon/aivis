@@ -8,7 +8,7 @@
  * This is the main controller of the aivisApp.
  */
 angular.module('aivisApp')
-  .controller('MainCtrl', function($scope, $timeout, CallService) {
+  .controller('MainCtrl', function($scope, $interval, CallService) {
 
     var data = [{
         "name": "John Doe",
@@ -82,7 +82,8 @@ angular.module('aivisApp')
       CallService.save(call);
     });
 
-    $timeout(function(){
+    $interval(function(){
+      console.log("time");
       getAll();
       getNext();
     }, 60000);
