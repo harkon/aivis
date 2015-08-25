@@ -15,7 +15,7 @@ angular.module('aivisApp')
     var SPECIAL_CHARS_REGEX = /[\(\)\-]/g;
     var DIGITS_OR_SPACE_REGEX = /^[\d\s]*$/;
 
-    function isUnique(arr) {
+    var isUnique = function (arr) {
       if(!arr) return;
       var map = {};
       for (var i = 0; i < arr.length; i++) {
